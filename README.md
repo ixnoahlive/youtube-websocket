@@ -5,6 +5,7 @@ A rudimentary websocket for YouTube live chat!
 * [ ] Superchat sticker support
 * [ ] Member gifting support
 * [ ] Message pinning support
+
 *(Probably won't add any of those things, though...)*
 
 ## Deploying
