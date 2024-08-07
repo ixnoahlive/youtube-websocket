@@ -1,4 +1,4 @@
-const x = new WebSocket('ws://localhost:9905/c/lofigirl')
+const x = new WebSocket(`ws://localhost:${process.env.PORT || 9905}/c/lofigirl`)
 
 x.addEventListener('open', () => {
     console.log('Opened connection!')
