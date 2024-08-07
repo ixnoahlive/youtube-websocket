@@ -4,10 +4,9 @@ export function paidMessageToJSON(itemData: YTNodes.LiveChatPaidMessage) {
     return JSON.stringify({
         type: 'superchat',
         id: itemData.id,
-        
+        purchase_amount: itemData.purchase_amount,
         hasMessage: !itemData.message.isEmpty(),
         message: itemData.message.text,
-        
         author: {
             name: itemData.author.name,
             id: itemData.author.id,

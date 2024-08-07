@@ -24,13 +24,17 @@ export async function finaliseStream(streamId: string, ws: ServerWebSocket) {
     
         switch(item.type) {
             case 'LiveChatTextMessage':
-                const itemData = item.as(YTNodes.LiveChatTextMessage)
-                ws.send(textMessageToJSON(itemData))
+                ws.send(textMessageToJSON(
+                    item.as(YTNodes.LiveChatTextMessage)
+                ))
             break;
 
             case 'LiveChatPaidMessage':
-                const itemData = item.as(YTNodes.LiveChatPaidMessage)
-                ws.send(paidMessageToJSON(itemData))
+                if (ws.data.params.includeSuperchat !== 'true') return;
+                
+                ws.send(paidMessageToJSON(
+                    item.as(YTNodes.LiveChatPaidMessage)
+                ))
             break;
         }
     })
