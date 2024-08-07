@@ -22,6 +22,8 @@ export async function finaliseStream(streamId: string, ws: ServerWebSocket) {
     
         if (!item) return
     
+        const searchParams = new URL(ws.data.url).searchParams
+
         switch(item.type) {
             case 'LiveChatTextMessage':
                 ws.send(textMessageToJSON(
@@ -30,8 +32,8 @@ export async function finaliseStream(streamId: string, ws: ServerWebSocket) {
             break;
 
             case 'LiveChatPaidMessage':
-                if (ws.data.params.includeSuperchat !== 'true') return;
-                
+                if (searchParams.get('includeSuperchat') !== 'true') return;
+
                 ws.send(paidMessageToJSON(
                     item.as(YTNodes.LiveChatPaidMessage)
                 ))
