@@ -3,7 +3,8 @@
   "module": "src/index.ts",
   "type": "module",
   "scripts": {
-    "test": "bun run ./test/client.test.ts"
+    "testchannel": "bun run ./test/channel.test.ts",
+    "teststream":  "bun run ./test/stream.test.ts"
   },
   "devDependencies": {
     "@types/bun": "latest"
