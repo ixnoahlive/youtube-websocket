@@ -11,7 +11,7 @@ export async function getChannel(ws : ServerWebSocket) {
     const youtube  = await innertube()
     const streamData = await youtube.resolveURL(`https://www.youtube.com/${niceId}/live`).catch(() => { return null })
 
-    if (!streamData?.payload?.id) return ws.close(1000, 'Could not find stream by channel identifier')
+    if (!streamData?.payload?.videoId) return ws.close(1000, 'Could not find stream by channel identifier')
 
-    finaliseStream(streamData.payload.id, ws)
+    finaliseStream(streamData.payload.videoId, ws)
 }
