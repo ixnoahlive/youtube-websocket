@@ -2,6 +2,9 @@ import type { ServerWebSocket } from "bun";
 import { innertube } from "./youtube";
 import { YTNodes } from "youtubei.js/web";
 
+import { textMessageToJSON } from "../adapters/textMessage";
+import { paidMessageToJSON } from "../adapters/paidMessage";
+
 /** Someone please open a fucking PR to find a better name for this. It's 1AM and I can't think of shit. */
 export async function finaliseStream(streamId: string, ws: ServerWebSocket) {
     const youtube = await innertube()
@@ -22,19 +25,12 @@ export async function finaliseStream(streamId: string, ws: ServerWebSocket) {
         switch(item.type) {
             case 'LiveChatTextMessage':
                 const itemData = item.as(YTNodes.LiveChatTextMessage)
-    
-                ws.send(JSON.stringify({
-                    type: 'message',
-                    id: itemData.id,
-                    message: itemData.message.text,
-                    author: {
-                        name: itemData.author.name,
-                        id: itemData.author.id,
-                        verified: itemData.author.is_verified,
-                        moderator: itemData.author.is_moderator,
-                    },
-                    unix: itemData.timestamp
-                }))
+                ws.send(textMessageToJSON(itemData))
+            break;
+
+            case 'LiveChatPaidMessage':
+                const itemData = item.as(YTNodes.LiveChatPaidMessage)
+                ws.send(paidMessageToJSON(itemData))
             break;
         }
     })
