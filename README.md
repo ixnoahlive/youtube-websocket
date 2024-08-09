@@ -1,5 +1,5 @@
 # youtube-websocket
-A rudimentary websocket for YouTube live chat!
+A rudimentary plug-and-play websocket for YouTube live chat!
 * [x] Outputs messages with basic info
 * [x] Superchat support
 * [ ] Superchat sticker support
