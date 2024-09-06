@@ -5,6 +5,7 @@ export function textMessageToJSON(itemData: YTNodes.LiveChatTextMessage) {
         type: 'message',
         id: itemData.id,
         message: itemData.message.text,
+        runs: itemData.message.runs || [],
         author: {
             name: itemData.author.name,
             id: itemData.author.id,
